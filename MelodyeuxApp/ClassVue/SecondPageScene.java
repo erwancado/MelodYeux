@@ -28,13 +28,15 @@ public class SecondPageScene extends WindowClass{
         partitionButton.setId("partitionButton");
         partitionButton.setLayoutX(0);
         partitionButton.setLayoutY(0);
-        partitionButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        partitionButton.setMinSize(WIDTH- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
+        partitionButton.setStyle("-fx-font-size:" + WIDTH*0.15);
 
         optionButton = new Button("Option");
         optionButton.setId("optionButton");
         optionButton.setLayoutX(0);
-        optionButton.setLayoutY((Main.HEIGHT/2) - BORDER_SIZE*3);
-        optionButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        optionButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
+        optionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
+        optionButton.setStyle("-fx-font-size:" + WIDTH*0.15);
 
         //endregion
 
@@ -42,7 +44,10 @@ public class SecondPageScene extends WindowClass{
         //region Region de Gestion des boutons
 
         optionButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            Main.setActiveScene(Main.myStage, ++Main.numScene);
+            Main.setActiveScene(Main.myStage, 4);
+        });
+        partitionButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            Main.setActiveScene(Main.myStage, 2);
         });
 
         //endregion
@@ -52,7 +57,7 @@ public class SecondPageScene extends WindowClass{
     }
 
     public void resizeButton(){
-        partitionButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2 );
-        optionButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2);
+        partitionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2- BORDER_SIZE*2 );
+        optionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
     }
 }

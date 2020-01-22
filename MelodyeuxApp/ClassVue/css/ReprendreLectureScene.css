@@ -12,15 +12,20 @@
 .button:hover{
 
     -fx-background-color: grey;
-
 }
 
-#melodyeuxButton{
-
+#lectureButton{
     -fx-padding: 0;
+    -fx-font-size: 300;
 }
 
-#quitButton{
+#repertoireButton{
+    -fx-padding: 0;
     -fx-font-size: 150;
-    -fx-padding: 0;
+
+}
+
+#ajouterPartButton{
+    -fx-font-size: 150;
+    -fx-padding: 2;
 }

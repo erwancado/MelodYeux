@@ -10,19 +10,16 @@ public class ListeMorceauxScene extends WindowClass {
     private int cptMorceau;
     private int maxNbPage;
 
-    /*private Button morceau_1;
-    private Button morceau_2;
-    private Button morceau_3;
-    private Button morceau_4;*/
     private Button backButton;
     private Button nextButton;
 
-    private final int BORDER_SIZE = 10;
-    private final Double WIDTH = Main.myStage.getWidth();
-    private final Double HEIGHT = Main.myStage.getHeight();
+    private final int BORDER_SIZE = 12;
+
 
     public ListeMorceauxScene() {
         super();
+
+        System.out.println(Main.numScene);
 
         scene.getStylesheets().add("css/ListeMorceauxScene.css");
 
@@ -31,15 +28,17 @@ public class ListeMorceauxScene extends WindowClass {
         morceauxAfficheTab = new String[4];
 
         //region Definition des éléments graphique et positionnement
-        backButton = new Button("Précedent");
-        backButton.setMinSize(WIDTH/2, HEIGHT/3);
+        backButton = new Button("Précédent");
+        backButton.setMinSize(WIDTH/2 + (BORDER_SIZE >> 1), HEIGHT/3 + (BORDER_SIZE >> 1));
         backButton.setLayoutX(0);
         backButton.setLayoutY(2*HEIGHT/3);
+        backButton.setStyle("-fx-font-size:"+ WIDTH*0.08);
 
         nextButton = new Button("Suivant");
-        nextButton.setMinSize(WIDTH/2, HEIGHT/3);
+        nextButton.setMinSize(WIDTH/2 + (BORDER_SIZE >> 1), HEIGHT/3 + (BORDER_SIZE >> 1));
         nextButton.setLayoutX(WIDTH/2);
         nextButton.setLayoutY(2*HEIGHT/3);
+        nextButton.setStyle("-fx-font-size:"+ WIDTH*0.08);
 
 
         nextButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->{
@@ -47,6 +46,18 @@ public class ListeMorceauxScene extends WindowClass {
                 cptMorceau+=4;
             else
                 return;
+            InitAfficheTab();
+            InitButtons();
+        });
+
+        backButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            if (cptMorceau != 0)
+                cptMorceau-=4;
+            else{
+                Main.setActiveScene(Main.myStage, 2);
+                return;
+            }
+
             InitAfficheTab();
             InitButtons();
         });
@@ -60,8 +71,6 @@ public class ListeMorceauxScene extends WindowClass {
         }
         else
             maxNbPage = morceauxTab.size()/4 +1;
-
-        System.out.println(maxNbPage);
 
         InitAfficheTab();
         InitButtons();
@@ -93,11 +102,11 @@ public class ListeMorceauxScene extends WindowClass {
         int i = 0;
         int j = 0;
         for (String m : morceauxAfficheTab){
-            System.out.println("Button : " + m);
             b = new Button(m);
-            b.setMinSize(WIDTH/2, HEIGHT/3);
+            b.setMinSize(WIDTH/2 + (BORDER_SIZE >> 1), HEIGHT/3 + (BORDER_SIZE >> 1));
             b.setLayoutX(j*WIDTH/2);
             b.setLayoutY(i*HEIGHT/3);
+            b.setStyle("-fx-font-size:"+ WIDTH*0.10);
             addToScene(b);
             j++;
             if (j > 1){

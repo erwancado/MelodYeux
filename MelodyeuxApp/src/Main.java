@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -7,14 +8,13 @@ public class Main extends Application {
     //Les élément statics sont accessibles partout dans le code en écrivant Main.monElement
     public static Stage myStage;
     public static int numScene = 0;
-    public static final int WIDTH = 1600;
-    public static final int HEIGHT = 1000;
 
     //Pour chaque nouvelle page on crée un instance de cette page ici
     private static AccueilScene accueilPage;
     private static SecondPageScene secondPageScene;
     private static OptionScene optionScene;
     private static ListeMorceauxScene liste_morceauxScene;
+    private static ReprendreLectureScene reprendreLectureScene ;
 
 
     @Override
@@ -22,9 +22,14 @@ public class Main extends Application {
 
         //On initialise la stage
         myStage = stage;
-        myStage.setTitle("Titre fenêtre");
-        myStage.setWidth(WIDTH);
-        myStage.setHeight(HEIGHT);
+
+        myStage.setMinWidth(Screen.getPrimary().getBounds().getWidth());
+        myStage.setMinHeight(Screen.getPrimary().getBounds().getHeight());
+        myStage.setX(0);
+        myStage.setY(0);
+
+        System.out.println("Stage : W :" + myStage.getMinWidth() + " , H:" + myStage.getMinHeight());
+        myStage.setTitle("Melod'yeux");
 
         myStage.widthProperty().addListener((obs, oldVal, newVal)->{
             secondPageScene.resizeButton();
@@ -35,6 +40,7 @@ public class Main extends Application {
         secondPageScene = new SecondPageScene();
         optionScene = new OptionScene();
         liste_morceauxScene = new ListeMorceauxScene();
+        reprendreLectureScene = new ReprendreLectureScene();
 
         //endregion
 
@@ -61,9 +67,12 @@ public class Main extends Application {
                 stage.setScene(secondPageScene.getScene());
                 break;
             case 2:
-                stage.setScene(liste_morceauxScene.getScene());
+                stage.setScene(reprendreLectureScene.getScene());
                 break;
             case 3:
+                stage.setScene(liste_morceauxScene.getScene());
+                break;
+            case 4:
                 stage.setScene(optionScene.getScene());
                 break;
             default:
