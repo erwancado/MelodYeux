@@ -27,4 +27,5 @@
 
 #ajouterPartButton{
     -fx-font-size: 150;
+    -fx-padding: 2;
 }

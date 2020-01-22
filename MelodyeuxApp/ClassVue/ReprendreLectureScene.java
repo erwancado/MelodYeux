@@ -27,19 +27,23 @@ public class ReprendreLectureScene extends WindowClass{
         lectureButton.setId("lectureButton");
         lectureButton.setLayoutX(0);
         lectureButton.setLayoutY(0);
-        lectureButton.setMinSize(WIDTH- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
+        lectureButton.setMinSize(WIDTH,HEIGHT/2);
+        lectureButton.setStyle("-fx-font-size:" +  WIDTH*0.12);
 
         repertoireButton = new Button("Répertoire");
         repertoireButton.setId("repertoireButton");
         repertoireButton.setLayoutX(0);
         repertoireButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
-        repertoireButton.setMinSize(WIDTH/2- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
+        repertoireButton.setMinSize((WIDTH/2),HEIGHT/2);
+        repertoireButton.setStyle("-fx-font-size:" +  WIDTH*0.095);
+
 
         ajouterPartitionButton = new Button("Ajouter\npartition");
         ajouterPartitionButton.setId("ajouterPartButton");
-        ajouterPartitionButton.setLayoutX((HEIGHT/2) - BORDER_SIZE*3);
+        ajouterPartitionButton.setLayoutX((WIDTH/2) - BORDER_SIZE*3);
         ajouterPartitionButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
-        ajouterPartitionButton.setMinSize((WIDTH)/2- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
+        ajouterPartitionButton.setMinSize(WIDTH/2 +BORDER_SIZE*3,(HEIGHT/2));
+        ajouterPartitionButton.setStyle("-fx-font-size:" +  WIDTH*0.1);
 
         //endregion
 
