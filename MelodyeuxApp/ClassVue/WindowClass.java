@@ -22,7 +22,7 @@ public class WindowClass {
     public WindowClass() {
 
         group = new Group();
-        scene = new Scene(group, Main.myStage.getWidth(), Main.myStage.getHeight(), Color.BLACK );
+        scene = new Scene(group, WIDTH, HEIGHT, Color.BLACK );
 
         //On gère les différentes action en fonction des touches!
         scene.setOnKeyPressed(key -> {

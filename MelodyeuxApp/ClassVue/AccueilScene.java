@@ -28,7 +28,7 @@ public class AccueilScene extends WindowClass {
         //System.out.println(WIDTH + " : " + HEIGHT);
 
         quit.setLayoutX((WIDTH-quit.getMinWidth())/2);
-        quit.setLayoutY(HEIGHT*0.6);
+        quit.setLayoutY(HEIGHT*0.7);
         //On défini le style du bouton
         quit.setId("quitButton");
 
