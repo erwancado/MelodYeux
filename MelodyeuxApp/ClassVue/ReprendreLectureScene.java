@@ -27,19 +27,19 @@ public class ReprendreLectureScene extends WindowClass{
         lectureButton.setId("lectureButton");
         lectureButton.setLayoutX(0);
         lectureButton.setLayoutY(0);
-        lectureButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        lectureButton.setMinSize(WIDTH- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
 
         repertoireButton = new Button("Répertoire");
         repertoireButton.setId("repertoireButton");
         repertoireButton.setLayoutX(0);
-        repertoireButton.setLayoutY((Main.HEIGHT/2) - BORDER_SIZE*3);
-        repertoireButton.setMinSize((Main.myStage.getWidth())/2- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        repertoireButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
+        repertoireButton.setMinSize(WIDTH/2- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
 
         ajouterPartitionButton = new Button("Ajouter\npartition");
         ajouterPartitionButton.setId("ajouterPartButton");
-        ajouterPartitionButton.setLayoutX((Main.HEIGHT/2) - BORDER_SIZE*3);
-        ajouterPartitionButton.setLayoutY((Main.HEIGHT/2) - BORDER_SIZE*3);
-        ajouterPartitionButton.setMinSize((Main.myStage.getWidth())/2- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        ajouterPartitionButton.setLayoutX((HEIGHT/2) - BORDER_SIZE*3);
+        ajouterPartitionButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
+        ajouterPartitionButton.setMinSize((WIDTH)/2- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
 
         //endregion
 
@@ -57,9 +57,9 @@ public class ReprendreLectureScene extends WindowClass{
     }
 
     public void resizeButton(){
-        lectureButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2 );
-        repertoireButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2);
-        ajouterPartitionButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2);
+        lectureButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2- BORDER_SIZE*2 );
+        repertoireButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2- BORDER_SIZE*2);
+        ajouterPartitionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2- BORDER_SIZE*2);
 
     }
 }

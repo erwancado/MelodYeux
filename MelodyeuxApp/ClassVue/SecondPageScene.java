@@ -33,7 +33,7 @@ public class SecondPageScene extends WindowClass{
         optionButton = new Button("Option");
         optionButton.setId("optionButton");
         optionButton.setLayoutX(0);
-        optionButton.setLayoutY((Main.HEIGHT/2) - BORDER_SIZE*3);
+        optionButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
         optionButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
 
         //endregion

@@ -8,8 +8,6 @@ public class Main extends Application {
     //Les élément statics sont accessibles partout dans le code en écrivant Main.monElement
     public static Stage myStage;
     public static int numScene = 0;
-    public static final int WIDTH = 1600;
-    public static final int HEIGHT = 1000;
 
     //Pour chaque nouvelle page on crée un instance de cette page ici
     private static AccueilScene accueilPage;
@@ -31,9 +29,7 @@ public class Main extends Application {
         myStage.setY(0);
 
         System.out.println("Stage : W :" + myStage.getMinWidth() + " , H:" + myStage.getMinHeight());
-        myStage.setTitle("Titre fenêtre");
-        myStage.setWidth(WIDTH);
-        myStage.setHeight(HEIGHT);
+        myStage.setTitle("Melod'yeux");
 
         myStage.widthProperty().addListener((obs, oldVal, newVal)->{
             secondPageScene.resizeButton();
