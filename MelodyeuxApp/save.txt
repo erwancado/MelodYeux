@@ -1,0 +1,49 @@
+/*Pane hihi = new Pane();
+        Scene coucou = new Scene(hihi);
+
+        TextField texte = new TextField();
+        texte.setLayoutX(300);
+        texte.setLayoutY(100);
+
+        hihi.getChildren().add(texte);
+
+        Button bouton = new Button();
+        bouton.setText("Je suis un bouton");
+        bouton.setLayoutY(400);
+        bouton.setLayoutX(300);
+
+        hihi.getChildren().add(bouton);
+
+        Text nouveau_texte= new Text();
+        nouveau_texte.setY(200);
+        nouveau_texte.setX(300);
+        hihi.getChildren().add(nouveau_texte);
+
+        bouton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+
+            System.out.println(texte.getText());
+            nouveau_texte.setText(texte.getText());
+
+        });
+
+
+        //Test changement de scene sur appuie bouton
+        Button changeScceneButton = new Button("Next Scene");
+        changeScceneButton.setLayoutX(700);
+        changeScceneButton.setLayoutY(400);
+
+        hihi.getChildren().add(changeScceneButton);
+
+        //On crée un instance de l'autre classe
+        SecondPageScene test = new SecondPageScene();
+
+        changeScceneButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            // On définit la scene active comme étant la scene de l'autre classe ! Oula c'est pas bien expliqué...
+            stage.setScene(test.getScene());
+            cptScene = 1;
+        });*/
+
+
+        /*if(cptScene == 0){
+           stage.setScene(coucou);
+        }*/

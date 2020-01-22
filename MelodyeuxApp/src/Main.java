@@ -1,0 +1,81 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+
+public class Main extends Application {
+
+    //Les élément statics sont accessibles partout dans le code en écrivant Main.monElement
+    public static Stage myStage;
+    public static int numScene = 0;
+    public static final int WIDTH = 1600;
+    public static final int HEIGHT = 1000;
+
+    //Pour chaque nouvelle page on crée un instance de cette page ici
+    private static AccueilScene accueilPage;
+    private static SecondPageScene secondPageScene;
+    private static OptionScene optionScene;
+    private static ListeMorceauxScene liste_morceauxScene;
+
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        //On initialise la stage
+        myStage = stage;
+        myStage.setTitle("Titre fenêtre");
+        myStage.setWidth(WIDTH);
+        myStage.setHeight(HEIGHT);
+
+        myStage.widthProperty().addListener((obs, oldVal, newVal)->{
+            secondPageScene.resizeButton();
+        });
+
+        //region Initialisation des différentes pages
+        accueilPage = new AccueilScene();
+        secondPageScene = new SecondPageScene();
+        optionScene = new OptionScene();
+        liste_morceauxScene = new ListeMorceauxScene();
+
+        //endregion
+
+
+
+        setActiveScene(stage, numScene);
+
+    }
+
+    /*
+    Permet de modifier la scene active. Methode static pour être appelée par d'autres classes.
+    Pour chaque nouvelle page, on ajoute un
+    case x :
+        //mon code
+        break;
+     */
+    public static void setActiveScene(Stage stage, int numScene){
+
+        switch(numScene){
+            case 0:
+                stage.setScene(accueilPage.getScene());
+                break;
+            case 1:
+                stage.setScene(secondPageScene.getScene());
+                break;
+            case 2:
+                stage.setScene(liste_morceauxScene.getScene());
+                break;
+            case 3:
+                stage.setScene(optionScene.getScene());
+                break;
+            default:
+                stage.setScene(accueilPage.getScene());
+                break;
+        }
+        stage.show();
+    }
+
+
+    public static void main(String[] args){
+        launch(args);
+    }
+
+}

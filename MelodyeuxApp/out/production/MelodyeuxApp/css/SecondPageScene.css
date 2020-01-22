@@ -1,0 +1,24 @@
+.button{
+
+    -fx-text-fill: white;
+    -fx-font-size: 300;
+
+    -fx-border-color: #38B09D;
+    -fx-border-width: 10px;
+
+    -fx-background-color: black;
+
+}
+
+.button:hover{
+
+    -fx-background-color: grey;
+}
+
+#partitionButton{
+    -fx-padding: 0;
+}
+
+#optionButton{
+    -fx-padding: 0;
+}
