@@ -19,6 +19,8 @@ public class ListeMorceauxScene extends WindowClass {
     public ListeMorceauxScene() {
         super();
 
+        System.out.println(Main.numScene);
+
         scene.getStylesheets().add("css/ListeMorceauxScene.css");
 
         morceauxTab = new ArrayList<>();
@@ -26,15 +28,17 @@ public class ListeMorceauxScene extends WindowClass {
         morceauxAfficheTab = new String[4];
 
         //region Definition des éléments graphique et positionnement
-        backButton = new Button("Précedent");
+        backButton = new Button("Précédent");
         backButton.setMinSize(WIDTH/2 + (BORDER_SIZE >> 1), HEIGHT/3 + (BORDER_SIZE >> 1));
         backButton.setLayoutX(0);
         backButton.setLayoutY(2*HEIGHT/3);
+        backButton.setStyle("-fx-font-size:"+ WIDTH*0.08);
 
         nextButton = new Button("Suivant");
         nextButton.setMinSize(WIDTH/2 + (BORDER_SIZE >> 1), HEIGHT/3 + (BORDER_SIZE >> 1));
         nextButton.setLayoutX(WIDTH/2);
         nextButton.setLayoutY(2*HEIGHT/3);
+        nextButton.setStyle("-fx-font-size:"+ WIDTH*0.08);
 
 
         nextButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->{
@@ -49,8 +53,11 @@ public class ListeMorceauxScene extends WindowClass {
         backButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             if (cptMorceau != 0)
                 cptMorceau-=4;
-            else
+            else{
+                Main.setActiveScene(Main.myStage, 2);
                 return;
+            }
+
             InitAfficheTab();
             InitButtons();
         });
@@ -99,6 +106,7 @@ public class ListeMorceauxScene extends WindowClass {
             b.setMinSize(WIDTH/2 + (BORDER_SIZE >> 1), HEIGHT/3 + (BORDER_SIZE >> 1));
             b.setLayoutX(j*WIDTH/2);
             b.setLayoutY(i*HEIGHT/3);
+            b.setStyle("-fx-font-size:"+ WIDTH*0.10);
             addToScene(b);
             j++;
             if (j > 1){
