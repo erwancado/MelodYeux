@@ -29,12 +29,14 @@ public class SecondPageScene extends WindowClass{
         partitionButton.setLayoutX(0);
         partitionButton.setLayoutY(0);
         partitionButton.setMinSize(WIDTH- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
+        partitionButton.setStyle("-fx-font-size:" + WIDTH*0.15);
 
         optionButton = new Button("Option");
         optionButton.setId("optionButton");
         optionButton.setLayoutX(0);
         optionButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
         optionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
+        optionButton.setStyle("-fx-font-size:" + WIDTH*0.15);
 
         //endregion
 
