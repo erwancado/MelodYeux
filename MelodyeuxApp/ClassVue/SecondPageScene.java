@@ -28,13 +28,13 @@ public class SecondPageScene extends WindowClass{
         partitionButton.setId("partitionButton");
         partitionButton.setLayoutX(0);
         partitionButton.setLayoutY(0);
-        partitionButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        partitionButton.setMinSize(WIDTH- BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
 
         optionButton = new Button("Option");
         optionButton.setId("optionButton");
         optionButton.setLayoutX(0);
         optionButton.setLayoutY((HEIGHT/2) - BORDER_SIZE*3);
-        optionButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        optionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
 
         //endregion
 
@@ -55,7 +55,7 @@ public class SecondPageScene extends WindowClass{
     }
 
     public void resizeButton(){
-        partitionButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2 );
-        optionButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
+        partitionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2- BORDER_SIZE*2 );
+        optionButton.setMinSize(WIDTH - BORDER_SIZE*2, HEIGHT/2 - BORDER_SIZE*2);
     }
 }

@@ -28,14 +28,14 @@ public class AccueilScene extends WindowClass {
         //System.out.println(WIDTH + " : " + HEIGHT);
 
         quit.setLayoutX((WIDTH-quit.getMinWidth())/2);
-        quit.setLayoutY(700);
+        quit.setLayoutY(HEIGHT*0.6);
         //On défini le style du bouton
         quit.setId("quitButton");
 
         melodyeuxButton = new Button("MELOD'yeux");
         melodyeuxButton.setMinSize(WIDTH*0.75,HEIGHT*0.50);
         melodyeuxButton.setLayoutX((WIDTH-melodyeuxButton.getMinWidth())/2);
-        melodyeuxButton.setLayoutY(50);
+        melodyeuxButton.setLayoutY(HEIGHT*0.05);
         melodyeuxButton.setId("melodyeuxButton");
 
         //endregion
