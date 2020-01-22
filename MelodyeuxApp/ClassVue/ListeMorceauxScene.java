@@ -10,10 +10,6 @@ public class ListeMorceauxScene extends WindowClass {
     private int cptMorceau;
     private int maxNbPage;
 
-    /*private Button morceau_1;
-    private Button morceau_2;
-    private Button morceau_3;
-    private Button morceau_4;*/
     private Button backButton;
     private Button nextButton;
 
