@@ -15,6 +15,7 @@ public class Main extends Application {
     private static SecondPageScene secondPageScene;
     private static OptionScene optionScene;
     private static ListeMorceauxScene liste_morceauxScene;
+    private static ReprendreLectureScene reprendreLectureScene ;
 
 
     @Override
@@ -35,6 +36,7 @@ public class Main extends Application {
         secondPageScene = new SecondPageScene();
         optionScene = new OptionScene();
         liste_morceauxScene = new ListeMorceauxScene();
+        reprendreLectureScene = new ReprendreLectureScene();
 
         //endregion
 
@@ -61,9 +63,12 @@ public class Main extends Application {
                 stage.setScene(secondPageScene.getScene());
                 break;
             case 2:
-                stage.setScene(liste_morceauxScene.getScene());
+                stage.setScene(reprendreLectureScene.getScene());
                 break;
             case 3:
+                stage.setScene(liste_morceauxScene.getScene());
+                break;
+            case 4:
                 stage.setScene(optionScene.getScene());
                 break;
             default:

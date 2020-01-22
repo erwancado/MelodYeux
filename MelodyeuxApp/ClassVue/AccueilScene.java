@@ -39,7 +39,7 @@ public class AccueilScene extends WindowClass {
         //region Region de Gestion des boutons
         //On ajoute des listener aux boutons pour gérer les evenements (ici click) On le fait pour chaque bouton
         melodyeuxButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->{
-            Main.setActiveScene(Main.myStage, ++Main.numScene);
+            Main.setActiveScene(Main.myStage, 1);
         });
 
         quit.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->{

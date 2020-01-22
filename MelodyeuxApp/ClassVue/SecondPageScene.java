@@ -42,7 +42,10 @@ public class SecondPageScene extends WindowClass{
         //region Region de Gestion des boutons
 
         optionButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            Main.setActiveScene(Main.myStage, ++Main.numScene);
+            Main.setActiveScene(Main.myStage, 4);
+        });
+        partitionButton.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            Main.setActiveScene(Main.myStage, 2);
         });
 
         //endregion
