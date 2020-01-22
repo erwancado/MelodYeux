@@ -56,6 +56,6 @@ public class SecondPageScene extends WindowClass{
 
     public void resizeButton(){
         partitionButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2 );
-        optionButton.setMinSize(Main.myStage.getWidth() - BORDER_SIZE*2, Main.myStage.getHeight()/2- BORDER_SIZE*2);
+        optionButton.setMinSize(Main.myStage.getWidth()- BORDER_SIZE*2, Main.myStage.getHeight()/2 - BORDER_SIZE*2);
     }
 }

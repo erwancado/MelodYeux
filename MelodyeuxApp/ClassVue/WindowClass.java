@@ -16,18 +16,19 @@ public class WindowClass {
     protected Group group;
     protected Scene scene;
 
+    protected final Double WIDTH = Main.myStage.getMinWidth();
+    protected final Double HEIGHT = Main.myStage.getMinHeight();
+
     public WindowClass() {
 
         group = new Group();
-        scene = new Scene(group, Color.BLACK);
+        scene = new Scene(group, Main.myStage.getWidth(), Main.myStage.getHeight(), Color.BLACK );
 
         //On gère les différentes action en fonction des touches!
         scene.setOnKeyPressed(key -> {
 
             switch (key.getCode()){
-                case ALT:
-                    Platform.exit();
-                    break;
+
                 case LEFT:
                     Main.setActiveScene(Main.myStage, --Main.numScene);
                     break;

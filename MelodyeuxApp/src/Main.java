@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -23,6 +24,13 @@ public class Main extends Application {
 
         //On initialise la stage
         myStage = stage;
+
+        myStage.setMinWidth(Screen.getPrimary().getBounds().getWidth());
+        myStage.setMinHeight(Screen.getPrimary().getBounds().getHeight());
+        myStage.setX(0);
+        myStage.setY(0);
+
+        System.out.println("Stage : W :" + myStage.getMinWidth() + " , H:" + myStage.getMinHeight());
         myStage.setTitle("Titre fenêtre");
         myStage.setWidth(WIDTH);
         myStage.setHeight(HEIGHT);
