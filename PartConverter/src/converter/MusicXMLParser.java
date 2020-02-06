@@ -1,58 +1,71 @@
 package converter;
-import java.util.ArrayList;
-import java.util.List;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
+import partition.Measure;
+import partition.Note;
+import partition.Part;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class MusicXMLParser extends DefaultHandler{
     private static boolean getChars = false;
+    // Manière dont est jouée la note
     private static boolean isArticulation = false;
-    private static boolean isDivisions = false;
+    // Mode de la mesure (majeur ou mineur)
+    private static boolean isMode= false;
+    // Clé de la partition
+    private static boolean isKey = false;
+    // Temps
     private static boolean isBeats = false;
-    private static int isPitchText = 0;
-    private static int isPitch = 0;
+    // Unité de temps
+    private static boolean isBeatsType = false;
+    // Durée de la note
     private static int isDur = 0;
+    // Nom de la note
     private static boolean isStep = false;
+    // Octave de la note
     private static boolean isOct = false;
+    // Altération de la note
     private static boolean isAlter = false;
-    public boolean isRunning = true;
-    public static boolean isDynamic;
-    public int row = 0;
-    public int whichTagIsBeingParsed;
-    private static int pitch = 0;
-    public static String[] tags;
-    public String step = "";
-    public String dur = "";
-    public String oct = "";
-    public String alter = "";
+    // Nuance de la note
+    private static boolean isDynamic;
+    private String step = "";
+    private String dur = "";
+    private String oct = "";
+    private String alter = "";
     private int articulation;
-    private int dynamic;
-    public static int ctr = 0;
-    //static ShowXML play;
-    public static List<MusicXMLdatastored> dataList;
-    public static MusicXMLdatastored store;
-    public MusicXMLParser() {
+    private String dynamic;
+    private int nbMeasures=0;
+    private Part part;
+    private static Measure measure;
+    private MusicXMLParser(int partId) {
         super();
+        this.part=new Part(partId);
     }
     public void startElement( String namespaceURI, String localName,
                               String qName, Attributes atts ) {
-        if( localName.equals( "divisions" ) ) isDivisions = true;
+        if( localName.equals( "attributes" ) ) {
+            nbMeasures++;
+            measure=new Measure(nbMeasures);
+        }
+        if(localName.equals("sign")) isKey=true;
+        if(localName.equals("mode")) isMode=true;
         if( localName.equals( "beats" ) ) isBeats = true;
+        if( localName.equals( "beat-type" ) ) isBeatsType = true;
         if( MusicXMLParser.isDynamic ) {
-            if( localName.equals( "p" ) ) this.dynamic = 1;
-            if( localName.equals( "pp" ) ) this.dynamic = 2;
-            if( localName.equals( "ppp" ) ) this.dynamic = 3;
-            if( localName.equals( "f" ) ) this.dynamic = 4;
-            if( localName.equals( "ff" ) ) this.dynamic = 5;
-            if( localName.equals( "fff" ) ) this.dynamic = 6;
-            if( localName.equals( "mp" ) ) this.dynamic = 7;
-            if( localName.equals( "mf" ) ) this.dynamic = 8;
-            if( localName.equals( "sf" ) ) this.dynamic = 9;
-            if( localName.equals( "sfz" ) ) this.dynamic = 9;
-            if( localName.equals( "sfp" ) ) this.dynamic = 10;
-            if( localName.equals( "sz" ) ) this.dynamic = 11;
+            if( localName.equals( "p" ) ) this.dynamic = "piano";
+            if( localName.equals( "pp" ) ) this.dynamic = "pianissimo";
+            if( localName.equals( "ppp" ) ) this.dynamic = "pianississimo";
+            if( localName.equals( "f" ) ) this.dynamic = "forte";
+            if( localName.equals( "ff" ) ) this.dynamic = "fortissimo";
+            if( localName.equals( "fff" ) ) this.dynamic = "fortississimo";
+            if( localName.equals( "mp" ) ) this.dynamic = "mezzo piano";
+            if( localName.equals( "mf" ) ) this.dynamic = "mezzo forte";
+            if( localName.equals( "sf" ) ) this.dynamic = "subito forte";
+            if( localName.equals( "sfz" ) ) this.dynamic = "sforzando";
+            if( localName.equals( "sfp" ) ) this.dynamic = "sforzando piano";
+            if( localName.equals( "sz" ) ) this.dynamic = "forzando";
         }
         if( MusicXMLParser.isArticulation ) {
             if( localName.equals( "accent" ) ) this.articulation = 1;
@@ -67,48 +80,45 @@ public class MusicXMLParser extends DefaultHandler{
                 isDur = 2;
             }
         }
-        if( isPitch == 1 || isPitchText == 1 ) {
             if( localName.equals( "step" ) ) isStep = true;
             if( localName.equals( "alter" ) ) isAlter = true;
             if( localName.equals( "octave" ) ) isOct = true;
-        }
+
     }
     public void endElement( String namespaceURI, String localName,
                             String qName ) {
         if( getChars ) getChars = false;
+        if(localName.equals("measure")){
+            part.addMeasure(measure);
+        }
+        if(localName.equals("sign")) isKey=false;
+        if(localName.equals("mode")) isMode=false;
+        if( localName.equals( "beats" ) ) isBeats = false;
+        if( localName.equals( "beat-type" ) ) isBeatsType = false;
         if( localName.equals( "duration" ) && isDur == 2 ) isDur = 1;
         if( localName.equals( "step" ) ) isStep = false;
         if( localName.equals( "alter" ) ) isAlter = false;
         if( localName.equals( "octave" ) ) isOct = false;
-        if( localName.equals( "divisions" ) ) isDivisions = false;
-        if( localName.equals( "beats" ) ) isBeats = false;
         if( localName.equals( "note" ) ) {
-            store = new MusicXMLdatastored();
-            store.setDynamic( this.dynamic );
-            store.setArticulation( this.articulation );
+            Note store = new Note();
+            store.dynamic=this.dynamic;
+            store.articulation=this.articulation;
             if( this.dur.length() > 0 ) {
-                store.setDur( Integer.parseInt( this.dur ) );
+                store.duration=Integer.parseInt( this.dur );
             }
-            if( isPitch == 1 ) {
-                store.setPitch( findPitch( step, alter, oct ) );
-            }
-            if( isPitchText == 1 ) {
                 if( alter.length() > 0 ) {
                     if( Integer.parseInt( alter ) == 1 )
-                        store.setPitchText( step + "#" + oct );
-                    else store.setPitchText( step + "b" + oct );
+                        store.pitch=step + "dièse" + oct ;
+                    else store.pitch=( step + "bémol" + oct );
                     alter = "";
-                } else store.setPitchText( step + oct );
-            }
-            dataList.add( store );
-            this.dynamic = 0;
+                } else store.pitch=( step + oct );
+            store.rythm=measure.GetRythm(store.duration);
+            measure.addNote(store);
             this.articulation = 0;
         }
     }
     public void startDocument() {}
     public void endDocument() {
-        //ShowXML.post( "<- PARSING COMPLETE " );
-        //ShowXML.isParsing = false;
     }
     public void characters ( char[] ch, int start, int len ) {
         String trim = new String(ch, start, len).trim();
@@ -117,69 +127,21 @@ public class MusicXMLParser extends DefaultHandler{
         if(isStep) this.step = trim;
         if(isAlter) this.alter = trim;
         if(isOct) this.oct = trim;
-        //if( isDivisions ) ShowXML.divisions = Integer.parseInt(trim);
-        //if( isBeats ) ShowXML.beats = Integer.parseInt(trim);
+        if(isMode) measure.setMode(trim);
+        if(isBeats ) measure.setTimeBeats(Integer.parseInt(trim));
+        if(isBeatsType) measure.setBeatType(Integer.parseInt(trim));
+        if(isKey) measure.setKey(trim);
     }
-    private static int toMIDI(String step) {
-        switch (step) {
-            case "C":
-                return 0;
-            case "D":
-                return 2;
-            case "E":
-                return 4;
-            case "F":
-                return 5;
-            case "G":
-                return 7;
-            case "A":
-                return 9;
-            default:
-                return 11;
-        }
-    }
-    private static int findPitch(String step, String alter, String oct) {
-        pitch = toMIDI( step );
-        if( alter.length() > 0 ) {
-            pitch =+ Integer.parseInt( alter );
-            isAlter = false;
-        }
-        if( oct.length() > 0 ) {
-            pitch += ( Integer.parseInt( oct ) + 1 ) * 12;
-            isOct = false;
-        }
-        return pitch;
-    }
-    public static void ParseThis( String fName ) {
-        MusicXMLParser s = new MusicXMLParser();
-
-        for( int i=0; i<tags.length; i++ ) {
-            if( tags[i].toString().equalsIgnoreCase( "pitchInText" ) )
-            {
-                isPitchText = 1;
-            }
-            if( tags[i].toString().equalsIgnoreCase( "pitch" ) ) {
-                isPitch = 1;
-            }
-            if( tags[i].toString().equalsIgnoreCase( "duration" ) ) {
-                isDur = 1;
-            }
-            if( tags[i].toString().equals("dynamics") ) {
-                isDynamic = true;
-            }
-            if( tags[i].toString().equals("articulations") ) {
-                isArticulation = true;
-            }
-        }
-
+    public static Part ParseThis( String fName,int partId ) {
         try {
-            dataList = new ArrayList<MusicXMLdatastored>();
+            MusicXMLParser xmlParser=new MusicXMLParser(partId);
             SAXParser p = SAXParserFactory.newInstance().newSAXParser();
-            p.parse( fName, new MusicXMLParser());
+            p.parse( fName, xmlParser);
+            return xmlParser.part;
         } catch ( Exception e ) {
             System.out.println( "Error: " + e.getMessage() + "\n" +
                     e.toString() + "\n" + e.getCause() );
+            return new Part(-1);
         }
-        ctr = 0;
     }
 }
