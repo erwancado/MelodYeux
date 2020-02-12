@@ -29,12 +29,31 @@ public class Measure {
     {
         int denominator = timeBeats;
         int numerator = noteDuration;
-        while ( numerator % 2 == 0 ) // simplify fraction
-        {
-            numerator /= 2;
-            denominator /=2;
+        int divisor = gcd(denominator,numerator);
+        if(divisor!=1){
+            numerator=euclidianDivision(numerator,divisor);
+            denominator=euclidianDivision(denominator,divisor);
         }
-        return denominator==1?Integer.toString(numerator): (numerator)+" sur "+(denominator);
+        return denominator+" sur "+numerator;
+    }
+    private int gcd(int a,int b){
+        while (b > 0)
+        {
+            int rem = a % b;
+            a = b;
+            b = rem;
+        }
+        return a;
+    }
+    private int euclidianDivision(int a, int b)
+    {
+        int remainder=a, quotient=0;
+        while (remainder >= b)
+        {
+            remainder = remainder - b;
+            quotient++;
+        }
+        return (quotient);
     }
     public int getNumber() {
         return number;
