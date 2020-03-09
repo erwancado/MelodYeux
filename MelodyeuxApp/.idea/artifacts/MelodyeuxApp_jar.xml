@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MelodyeuxApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MelodyeuxApp_jar</output-path>
+    <root id="archive" name="MelodyeuxApp.jar">
+      <element id="module-output" name="MelodyeuxApp" />
+    </root>
+  </artifact>
+</component>

@@ -2,6 +2,8 @@ import javafx.application.Application;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 
 public class Main extends Application {
 
@@ -44,7 +46,8 @@ public class Main extends Application {
 
         //endregion
 
-
+        Robot r = new Robot();
+        r.mouseMove((int)Screen.getPrimary().getBounds().getWidth()/2,(int)Screen.getPrimary().getBounds().getHeight()/2);
 
         setActiveScene(stage, numScene);
 
@@ -72,9 +75,9 @@ public class Main extends Application {
             case 3:
                 stage.setScene(liste_morceauxScene.getScene());
                 break;
-            case 4:
+            /*case 4:
                 stage.setScene(optionScene.getScene());
-                break;
+                break;*/
             default:
                 stage.setScene(accueilPage.getScene());
                 break;
