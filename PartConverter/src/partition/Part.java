@@ -8,6 +8,7 @@ public class Part {
 
     public Part(int id) {
         this.id = id;
+        measures=new ArrayList<>();
     }
     public void addMeasure(Measure measure){
         measures.add(measure);
