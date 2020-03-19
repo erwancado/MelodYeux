@@ -19,42 +19,29 @@ public class Measure {
     private int beatType;
     private String key;
     private ArrayList<Note> notes;
+    public boolean changeRythm=false;
 
     public Measure(int number) {
         this.number = number;
         notes=new ArrayList<>();
     }
 
-    public String GetRythm(int noteDuration)
-    {
-        int denominator = timeBeats;
-        int numerator = noteDuration;
-        int divisor = gcd(denominator,numerator);
-        if(divisor!=1){
-            numerator=euclidianDivision(numerator,divisor);
-            denominator=euclidianDivision(denominator,divisor);
+    @Override
+    public String toString() {
+        StringBuilder affichage= new StringBuilder("Mesure " + number);
+        if(changeRythm)
+            affichage.append(", chiffrage : "+timeBeats+" sur "+beatType);
+        if(mode!=null)
+            affichage.append(", "+mode).append("\n");
+        else
+            affichage.append("\n");
+        for (Note n:notes) {
+            affichage.append(n.toString());
         }
-        return denominator+" sur "+numerator;
+        affichage.append("\n");
+        return affichage.toString();
     }
-    private int gcd(int a,int b){
-        while (b > 0)
-        {
-            int rem = a % b;
-            a = b;
-            b = rem;
-        }
-        return a;
-    }
-    private int euclidianDivision(int a, int b)
-    {
-        int remainder=a, quotient=0;
-        while (remainder >= b)
-        {
-            remainder = remainder - b;
-            quotient++;
-        }
-        return (quotient);
-    }
+
     public int getNumber() {
         return number;
     }

@@ -1,13 +1,13 @@
 package converter;
 import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-import java.io.*;
+import org.xml.sax.helpers.DefaultHandler;
 import partition.Measure;
 import partition.Note;
 import partition.Part;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.PrintStream;
 
 public class MusicXMLParser extends DefaultHandler{
     // Manière dont est jouée la note
@@ -34,7 +34,7 @@ public class MusicXMLParser extends DefaultHandler{
     private String dur = "";
     private String oct = "";
     private String alter = "";
-    private int articulation;
+    private String articulation = "";
     private String dynamic;
     private int nbMeasures=0;
     private Part part;
@@ -45,7 +45,6 @@ public class MusicXMLParser extends DefaultHandler{
     }
     public void startElement( String namespaceURI, String localName,
                               String qName, Attributes atts ) throws SAXException{
-        System.out.println("<<"+qName);
         if( qName.equals( "measure" ) ) {
             nbMeasures++;
             measure=new Measure(nbMeasures);
@@ -72,12 +71,10 @@ public class MusicXMLParser extends DefaultHandler{
         }
         if(qName.equals("articulations"))isArticulation=true;
         if( MusicXMLParser.isArticulation ) {
-            if( qName.equals( "accent" ) ) this.articulation = 1;
-            if( qName.equals( "strong-accent" ) ) this.articulation
-                    = 2;
-            if( qName.equals( "staccato" ) ) this.articulation = 3;
-            if( qName.equals( "staccatissimo" ) )
-                this.articulation = 4;
+            if( qName.equals( "accent" ) ) this.articulation = "accentué";
+            if( qName.equals( "strong-accent" ) ) this.articulation="très accentué";
+            if( qName.equals( "staccato" ) ) this.articulation = "staccato";
+            if( qName.equals( "staccatissimo" ) ) this.articulation="staccatissimo";
         }
         if( isDur == 1 ) {
             if( qName.equals( "duration" ) ) {
@@ -90,7 +87,6 @@ public class MusicXMLParser extends DefaultHandler{
     }
     public void endElement( String namespaceURI, String localName,
                             String qName ) throws SAXException{
-        System.out.println(qName+">>");
         if(qName.equals("measure")){
             part.addMeasure(measure);
         }
@@ -114,14 +110,17 @@ public class MusicXMLParser extends DefaultHandler{
             }
                 if( alter.length() > 0 ) {
                     if( Integer.parseInt( alter ) == 1 )
-                        store.pitch=step + "dièse" + oct ;
-                    else store.pitch=( step + "bémol" + oct );
+                        store.pitch=step + " dièse " + oct ;
+                    else store.pitch=( step + " bémol " + oct );
                     alter = "";
                 }
-                else store.pitch=( step + oct );
-
-            store.rythm=measure.GetRythm(store.duration);
-            this.articulation = 0;
+                else
+                    store.pitch=( step + oct );
+            if(measure.getNumber()==1)
+                store.rythm=part.GetRythm(store.duration,measure.getTimeBeats());
+            else
+                store.rythm=part.GetRythm(store.duration);
+            this.articulation = "";
             measure.addNote(store);
         }
     }
