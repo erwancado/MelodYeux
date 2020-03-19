@@ -35,7 +35,7 @@ public class MusicXMLParser extends DefaultHandler{
     private String oct = "";
     private String alter = "";
     private String articulation = "";
-    private String dynamic;
+    private String dynamic="";
     private int nbMeasures=0;
     private Part part;
     private Measure measure;
@@ -54,7 +54,7 @@ public class MusicXMLParser extends DefaultHandler{
         if(qName.equals("mode")) isMode=true;
         if( qName.equals( "beats" ) ) isBeats = true;
 
-        if(qName.equals("dynamic")) isDynamic=true;
+        if(qName.equals("dynamics")) isDynamic=true;
         if( MusicXMLParser.isDynamic ) {
             if( qName.equals( "p" ) ) this.dynamic = "piano";
             if( qName.equals( "pp" ) ) this.dynamic = "pianissimo";
@@ -103,6 +103,7 @@ public class MusicXMLParser extends DefaultHandler{
         if( qName.equals( "note" ) ) {
             Note store = new Note();
             store.dynamic=this.dynamic;
+            System.out.println(dynamic);
             store.articulation=this.articulation;
 
             if( this.dur.length() > 0 ) {
