@@ -5,6 +5,7 @@ import converter.MusicXMLParser;
 import partition.Part;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,12 +15,27 @@ public class Main{
         System.setProperty("http.agent", "Mozilla/5.0 (X11; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0");
         String downloadPath=System.getProperty("user.home")+"/Downloads/";
         JFileChooser dialogue = new JFileChooser(downloadPath);
+        dialogue.setFileFilter(new FileFilter() {
+
+            public String getDescription() {
+                return "MXL MusicXML files (*.mxl)";
+            }
+
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    String filename = f.getName().toLowerCase();
+                    return filename.endsWith(".mxl");
+                }
+            }
+        });
         dialogue.showOpenDialog(null);
         File toUnzip = dialogue.getSelectedFile();
         File destination = new File(downloadPath+"converter_tmp");
         try {
             File musicxmlFile = FileManager.unzip(toUnzip,destination);
-            Part partition=MusicXMLParser.ParseThis(musicxmlFile.getPath(),1);
+            Part partition= MusicXMLParser.ParseThis(musicxmlFile.getPath(),1);
             System.out.println(partition.toString());
             String outputPath = toUnzip.getPath().replaceFirst(".mxl",".txt");
             System.out.println(outputPath);
@@ -30,6 +46,6 @@ public class Main{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //FileManager.deleteDirectory(destination);
+        FileManager.deleteDirectory(destination);
     }
 }
