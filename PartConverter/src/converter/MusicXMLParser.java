@@ -30,12 +30,15 @@ public class MusicXMLParser extends DefaultHandler{
     private static boolean isAlter = false;
     // Nuance de la note
     private static boolean isDynamic;
+    // Clé à laquelle appartient la note
+    private static boolean isNoteKeyGroup = false;
     private String step = "";
     private String dur = "";
     private String oct = "";
     private String alter = "";
     private String articulation = "";
     private String dynamic="";
+    private int noteGroup;
     private int nbMeasures=0;
     private Part part;
     private Measure measure;
@@ -55,6 +58,7 @@ public class MusicXMLParser extends DefaultHandler{
         if( qName.equals( "beats" ) ) isBeats = true;
 
         if(qName.equals("dynamics")) isDynamic=true;
+        if(qName.equals("staff")) isNoteKeyGroup=true;
         if( MusicXMLParser.isDynamic ) {
             if( qName.equals( "p" ) ) this.dynamic = "piano";
             if( qName.equals( "pp" ) ) this.dynamic = "pianissimo";
@@ -91,6 +95,7 @@ public class MusicXMLParser extends DefaultHandler{
             part.addMeasure(measure);
         }
         if(qName.equals("sign")) isKey=false;
+        if(qName.equals("staff")) isNoteKeyGroup=false;
         if(qName.equals("dynamic")) isDynamic=false;
         if( qName.equals( "beat-type" ) ) isBeatsType = false;
         if(qName.equals("mode")) isMode=false;
@@ -121,6 +126,7 @@ public class MusicXMLParser extends DefaultHandler{
                 store.rythm=part.GetRythm(store.duration,measure.getTimeBeats());
             else
                 store.rythm=part.GetRythm(store.duration);
+            store.group=noteGroup;
             this.articulation = "";
             measure.addNote(store);
         }
@@ -140,10 +146,11 @@ public class MusicXMLParser extends DefaultHandler{
             if (isStep) this.step = trim;
             if (isAlter) this.alter = trim;
             if (isOct) this.oct = trim;
+            if(isNoteKeyGroup) this.noteGroup=Integer.parseInt(trim);
             if (isMode) measure.setMode(trim);
             if(isBeats) measure.setTimeBeats(Integer.parseInt(trim));
             if (isBeatsType) measure.setBeatType(Integer.parseInt(trim));
-            if (isKey) measure.setKey(trim);
+            if (isKey) measure.addKey(trim);
         }
     }
     public static Part ParseThis( String fName,int partId ) {

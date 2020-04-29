@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PartConverter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PartConverter_jar</output-path>
+    <root id="archive" name="PartConverter.jar">
+      <element id="module-output" name="PartConverter" />
+    </root>
+  </artifact>
+</component>

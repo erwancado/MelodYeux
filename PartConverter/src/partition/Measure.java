@@ -17,13 +17,15 @@ public class Measure {
     private int timeBeats;
     // Type de temps (binaire,ternaire...)
     private int beatType;
-    private String key;
+    private ArrayList<String> keys;
     private ArrayList<Note> notes;
+    private Part part;
     public boolean changeRythm=false;
 
     public Measure(int number) {
         this.number = number;
         notes=new ArrayList<>();
+        keys=new ArrayList<>();
     }
 
     @Override
@@ -35,11 +37,25 @@ public class Measure {
             affichage.append(", "+mode).append("\n");
         else
             affichage.append("\n");
+        StringBuilder firstGroupNotes= new StringBuilder();
+        StringBuilder secondGroupNotes= new StringBuilder();
         for (Note n:notes) {
-            affichage.append(n.toString());
+            if(n.group==1)
+                firstGroupNotes.append(n.toString());
+            else
+                secondGroupNotes.append(n.toString());
         }
-        affichage.append("\n");
+        if(secondGroupNotes.length()<2)
+            affichage.append(firstGroupNotes.toString()).append("\n");
+        else{
+            affichage.append("Clé ").append(part.getKeys().get(0)).append(" : ").append(firstGroupNotes.toString()).append("\n");
+            affichage.append("Clé ").append(part.getKeys().get(1)).append(" : ").append(secondGroupNotes.toString()).append("\n");
+        }
         return affichage.toString();
+    }
+
+    public void setPart(Part part) {
+        this.part = part;
     }
 
     public int getNumber() {
@@ -74,12 +90,13 @@ public class Measure {
         this.beatType = beatType;
     }
 
-    public String getKey() {
-        return key;
+    public void addKey(String key){
+        keys.add(key);
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public ArrayList<String> getKeys() {
+        return keys;
     }
+
     public void addNote(Note note){this.notes.add(note);}
 }

@@ -9,7 +9,7 @@ public class Part {
     private int timeBeats;
     // Type de temps (binaire,ternaire...)
     private int beatType;
-    private String key;
+    private ArrayList<String> keys;
 
     public Part(int id) {
         this.id = id;
@@ -17,7 +17,7 @@ public class Part {
     }
     public void addMeasure(Measure measure){
         if(measures.isEmpty()){
-            key=measure.getKey();
+            keys=measure.getKeys();
             timeBeats=measure.getTimeBeats();
             beatType=measure.getBeatType();
         }
@@ -31,6 +31,7 @@ public class Part {
             }
         }
         measures.add(measure);
+        measure.setPart(this);
     }
     public Measure getMeasure(int number){
         return measures.get(number);
@@ -38,7 +39,16 @@ public class Part {
 
     @Override
     public String toString() {
-        StringBuilder affichage= new StringBuilder("Partition, "+"nombre de mesures "+measures.size()+", clé " + key + ", chiffrage : " + timeBeats + " sur " + beatType + "\n");
+        StringBuilder affichage= new StringBuilder("Partition, "+"nombre de mesures "+measures.size());
+        if(keys.size()>1){
+            for (int i=0;i<keys.size();i++){
+                affichage.append(", clé ").append(i+1).append(" :").append(keys.get(i));
+            }
+        }
+        else{
+            affichage.append(", clé :").append(keys.get(0));
+        }
+        affichage.append(", chiffrage : ").append(timeBeats).append(" sur ").append(beatType).append("\n");
         for (Measure m:
              measures) {
             affichage.append(m.toString());
@@ -89,5 +99,9 @@ public class Part {
             quotient++;
         }
         return (quotient);
+    }
+
+    public ArrayList<String> getKeys() {
+        return keys;
     }
 }

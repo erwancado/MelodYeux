@@ -6,6 +6,7 @@ public class Note {
     public String rythm;
     public String articulation;
     public String dynamic;
+    public int group;
 
     public Note() {
 
